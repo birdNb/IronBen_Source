@@ -5,6 +5,8 @@ https://www.bilibili.com/video/BV18B9oYQEoy/?spm_id_from=333.1387.homepage.video
   项目相关的所有结构源文件Structure、相关的所有控制代码code（上下位机）、PCB硬件源文件Hardware。
 
 本作品同步在立创星火计划开源。
+![Uploading 星火计划-透底黑.png…]()
+
 
 同时我们组建了作品复刻交流群，方便解答同学们在复刻过程中遇到的各种问题。
   https://amq7.f2z.cn/zfbvEz
