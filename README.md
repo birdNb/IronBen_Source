@@ -1,4 +1,4 @@
- # IronBen 四足机器人开源项目（一个普通本科生的毕业设计）
+ # IronBen 四足轮腿机器人开源项目（一个普通本科生的毕业设计）
 
  作品展示：
 https://www.bilibili.com/video/BV18B9oYQEoy/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b1f70ed87ba974c292801f9812cf83f9
