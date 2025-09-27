@@ -1,0 +1,71 @@
+body{
+    background-image: url("../Photo/robot1.png");
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+form{
+    text-align: center;
+/*          绝对定位，水平垂直居中*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*      美化用户与密码         */
+input[type=test]{
+/*          设置背景颜色为白色*/
+    background-color: white;
+/*          设置输入的密码的颜色为黑色*/
+    color: black;
+/*          边框样式默认*/
+    border:none;
+/*          设置边框圆角*/
+    border-radius: 20px;
+/*          轮廓样式默认*/
+    outline: none;
+/*          文本居中*/
+    text-align: center;
+/*          设置文本高度*/
+    height: 50px;
+/*          设置文本宽度*/
+    width: 250px;
+/*          设置外边框距离*/
+    margin: 5px;
+}
+
+
+/*      设置鼠标指针在用户与密码时的悬停效果        */
+input[type=test]:hover{
+/*          鼠标指针悬停时样式默认*/
+    outline: none;
+/*          设置悬停背景颜色*/
+    background-color: #65BCD6;
+/*          设置指针颜色为白色*/
+    color: white;
+/*          设置阴影*/
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.45), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+/*      美化按键   */
+input[type=submit]{
+    background-color: #45A0F2;  /*正常状态样式*/
+    color: white;
+    border:none;
+    border-radius: 20px;
+    outline: none;
+    text-align: center;
+    height: 50px;
+    width: 250px;
+    margin: 5px;
+}
+
+
+/*      设置鼠标指针在登录与注册时的悬停效果         */
+input[type=submit]:hover{
+    outline: none;
+    background-color:#168DBE;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.45), 0 6px 20px 0 rgba(0,0,0,0.19);
+}

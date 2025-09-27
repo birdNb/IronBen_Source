@@ -1,0 +1,89 @@
+/*整个网页的美化*/
+html{
+    background-image:url("../Photo/robot2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+    position: relative;
+}
+
+#windows {
+/*    background-color:yellow;*/
+    position: absolute;
+    z-index: 1;
+    right: 0px;
+    height: 870px;
+    width: 1270px;
+}
+
+#command {
+/*    background-color: blue;*/
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    height: 870px;
+    width: 325px;
+}
+
+#myButton {
+/*    background-color: blue;*/
+    position:absolute;
+    z-index:2;  
+    top: 140px;
+    left:0px; 
+    height:60%;
+    width:42%;
+}
+
+#carCommand {/*171*/
+/*    background-color: yellow;*/
+    position:absolute;
+    z-index:2;
+    left:124px;
+    height:80%;
+    width:58%;
+}
+
+#carFunction1 {/*85.55*/
+/*    background-color: black;*/
+    position:absolute;
+    z-index:3;
+    left:0px;
+    height: 100%;
+    width:49%;
+}
+
+#carFunction2 {/*85.55*/
+/*    background-color: red;*/
+    position:absolute;
+    z-index:3;
+    left:86px;
+    height: 100%;
+    width:49%;
+}
+
+
+input[type=button] {
+    height: 30px;
+    width:120px;
+    border-radius:10px;
+    margin:1px;
+    background-color: #45A0F2;
+    color:white;
+}
+
+video {
+/*    background-color: yellow;*/
+    height: 100%;
+    width: 100%;
+}
+
+canvas {
+/*    background-color: red;*/
+    position: absolute;
+    z-index: 3;
+    top: 695px;
+    right: 970px;
+}

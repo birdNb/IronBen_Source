@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotic Control</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+            background: #f0f0f0;
+        }
+        .media-container {
+            width: 640px;
+            height: 480px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        #videoFeed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .command-display {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            color: #2c3e50;
+            background: #ecf0f1;
+            padding: 12px 24px;
+            border-radius: 6px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="media-container">
+        <img id="videoFeed" src="/video_feed">
+    </div>
+    <p class="command-display" id="commandDisplay">X0Y0W0P0T0G0</p>
+
+    <script>
+        // 状态管理对象
+        const state = {
+            Y: 0,       // 前后移动速度 [-300, 300]
+            W: 0,       // 转向速度 [-300, 300]
+            P: 0,       // 姿态模式 0-4
+            T: 0,       // 发射状态 0-1
+            G: 0        // 0-4
+        };
+
+        // 控制参数
+        const SPEED_ADD = 10;    // 加速度（单位/秒）
+        const MAX_SPEED = 300;
+        const UPDATE_INTERVAL = 50; // 更新间隔(ms)
+        
+        // 系统状态
+        let lastUpdate = Date.now();
+        let lastCommand = '';
+        let lastSentCommand = ''; // 记录最后实际发送的指令
+        const activeKeys = new Set();
+        let mKeyInterval = null; // M键定时器
+
+        // 指令生成器
+        const generateCommand = () => 
+            `X0Y${Math.round(state.Y)}W${Math.round(state.W)}P${state.P}T${state.T}G${state.G}`;
+
+        // 指令发送函数（带节流）
+        const sendCommand = (() => {
+            let isSending = false;
+            return async () => {
+                if(isSending) return;
+                
+                isSending = true;
+                const cmd = generateCommand();
+                
+                try {
+                    if(cmd !== lastCommand) {
+                        await fetch('/command', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                Y: state.Y,
+                                W: state.W,
+                                P: state.P,
+                                T: state.T,
+                                G: state.G
+                            })
+                        });
+                        document.getElementById('commandDisplay').textContent = cmd;
+                        lastCommand = cmd;
+                        lastSentCommand = cmd; // 更新最后发送的指令
+                    }
+                } catch(error) {
+                    console.error('指令发送失败:', error);
+                } finally {
+                    isSending = false;
+                }
+            };
+        })();
+
+        // 速度更新引擎
+        const updateSpeeds = () => {
+            const now = Date.now();
+            const delta = (now - lastUpdate) / 1000;
+            
+            // Y轴速度控制
+            if(activeKeys.has('w')) {
+                state.Y = Math.min(state.Y + SPEED_ADD, MAX_SPEED);
+            }
+            else if(activeKeys.has('s')) {
+                state.Y = Math.max(state.Y - SPEED_ADD, -MAX_SPEED);
+            }
+
+            // W轴速度控制
+            if(activeKeys.has('d')) {
+                state.W = Math.min(state.W + SPEED_ADD, MAX_SPEED);
+            }
+            else if(activeKeys.has('a')) {
+                state.W = Math.max(state.W - SPEED_ADD, -MAX_SPEED);
+            }
+
+            lastUpdate = now;
+            sendCommand();
+        };
+        
+        // M键发送逻辑(刷新)
+        const startMKeySending = () => {
+            if(!mKeyInterval && lastSentCommand) {
+                mKeyInterval = setInterval(() => {
+                    // 直接构造指令避免状态干扰
+                    const cmdToSend = lastSentCommand;
+                    
+                    // 使用独立发送通道
+                    fetch('/command', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            Y: state.Y,
+                            W: state.W,
+                            P: state.P,
+                            T: state.T,
+                            G: state.G
+                        })
+                    }).catch(console.error);
+                    
+                    // 更新显示但不影响实际状态
+                    document.getElementById('commandDisplay').textContent = cmdToSend; 
+                }, 50); // 提高发送频率到20Hz
+            }
+        };
+
+        const stopMKeySending = () => {
+            if(mKeyInterval) {
+                clearInterval(mKeyInterval);
+                mKeyInterval = null;
+            }
+        };
+
+        // 按键处理系统
+        const handleKeyEvent = (event) => {
+            const key = event.key.toLowerCase();
+            const isKeyDown = event.type === 'keydown';
+
+            // 过滤无效按键
+            if(!['w','a','s','d','0','1','2','3','4','p','[','g','m'].includes(key)) return;
+            
+            // 更新按键状态
+            if(isKeyDown) {
+                if(key === 'm') startMKeySending();
+
+                activeKeys.add(key);
+                // 新增：仅在首次按下时处理（忽略自动重复）
+                if(!event.repeat) {
+                    switch(key) {
+                        case 'p':  // P键处理
+                            state.P = (state.P + 1) % 5;
+                            sendCommand();
+                            break;
+                        case '[':  // [键处理 
+                            state.T = state.T === 0 ? 1 : 0;
+                            sendCommand();
+                            break;
+                            // 新增数字键处理
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                            const numValue = parseInt(key);
+                            if(numValue >= 0 && numValue <= 4) {
+                                state.G = numValue;
+                                sendCommand();
+                            }
+                            break;
+                        
+                    }
+                }
+            } else {
+                if(key === 'm') stopMKeySending();
+                activeKeys.delete(key);
+                
+                // 松开运动键时立即重置对应速度
+                switch(key) {
+                    case 'w':
+                    case 's':
+                        state.Y = 0;
+                        break;
+                    case 'a':
+                    case 'd':
+                        state.W = 0;
+                        break;
+                    case 'm': // 停止重复发送m
+                        stopMKeySending();
+                        break;
+                }
+            }
+
+        };
+
+        // 初始化系统
+        const init = () => {
+            // 启动速度更新循环
+            setInterval(updateSpeeds, UPDATE_INTERVAL);
+
+            // 注册事件监听
+            document.addEventListener('keydown', handleKeyEvent);
+            document.addEventListener('keyup', handleKeyEvent);
+
+            // 初始状态显示
+            sendCommand();
+        };
+
+        init();
+    </script>
+</body>
+</html>

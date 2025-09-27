@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>钢铁笨</title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="CSS\function.css"> 
+</head>
+<body>
+    <div id="windows">
+        <video id="video" autoplay="autoplay"></video>
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="command">
+        <!-- 按键调整 -->
+        <div id="myButton">
+                <input type="button" title="HTML5摄像头" value="开启摄像头(u)" onclick="getMedia()" /><br>
+                <input type="button" title="关闭摄像头" value="关闭摄像头(i)" onclick="stopMedia(video)" /><br>
+                <input type="button" title="拍照" value="拍照(j)" onclick="takePhoto()" /><br>
+                <input type="button" title="删除照片" value="删除照片(h)" onclick="clearPhoto()" /><br>
+                <input type="button" title="下载图片" value="下载图片(k)" onclick="downloadImg()" /><br>
+                <input type="button" title="姿态1" value="切换姿态1(1)" onclick="carCommand1()" /><br>
+                <input type="button" title="姿态2" value="切换姿态2(2)" onclick="carCommand2()" /><br>
+                <input type="button" title="姿态3" value="切换姿态3(3)" onclick="carCommand3()" /><br>
+                <input type="button" title="姿态4" value="切换姿态4(4)" onclick="carCommand4()" /><br>
+                <input type="button" title="上行" value="启用上行(q)" onclick="carCommand5()" /><br>
+                <input type="button" title="下行" value="启用下行(e)" onclick="carCommand6()" /><br>
+                <input type="button" title="启用云台" value="启用云台(f)" onclick="carCommand7()" /><br>
+                <input type="button" title="越野步态" value="启用越野步态(t)" onclick="carCommand8()" />
+        </div>
+        <!-- 小车姿态 -->
+        <div id="carCommand">
+            <div id="carFunction1">
+                <p>姿态一(1)</p>
+                <img id="img1" src="Photo\姿态1.png" width="80%"  height="90" />
+                <p>姿态二(2)</p>
+                <img id="img2" src="Photo\姿态2.png" width="80%" height="90" />
+                <p>姿态三(3)</p>
+                <img id="img3" src="Photo\姿态3.png" width="80%" height="90" />
+                <p>姿态四(4)</p>
+                <img id="img4" src="Photo\姿态4.png" width="80%" height="90" />           
+            </div>
+        <!--  -->
+            <div id="carFunction2">
+                <p>上行(q)</p>
+                <img id="img5" src="Photo\上行.png" width="80%" height="90" />            
+                <p>下行(e)</p>
+                <img id="img6" src="Photo\下行.png" width="80%" height="90" />            
+                <p>启用云台(f)</p>
+                <img id="img7" src="Photo\启用云台.png" width="80%" height="90" />            
+                <p>越野步态(t)</p>
+                <img id="img8" src="Photo\越野步态.png" width="80%" height="90" />
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <script src="JavaScript\video.js"></script><!-- 管理摄像头功能的JavaScript文件 -->
+    <script src="JavaScript\command.js"></script><!-- 管理小车命令的JavaScript文件 -->
+</body>
+</html>
