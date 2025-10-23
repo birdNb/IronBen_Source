@@ -6,4 +6,4 @@
 	url = https://github.com/birdNb/MDK-ARM.git
 [submodule "RL/IronBenTask"]
 	path = RL/IronBenTask
-	url = https://github.com/birdNb/IronBen_Source.git
+	url = https://github.com/birdNb/IronBenTask.git
