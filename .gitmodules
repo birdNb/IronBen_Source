@@ -1,0 +1,9 @@
+[submodule "Code/F407_CORE_BOARD"]
+        path = Code/F407_CORE_BOARD
+        url = https://github.com/birdNb/F407_CORE_BOARD.git
+[submodule "Code/Bodyfeeling_Stick/MDK-ARM"]
+	path = Code/Bodyfeeling_Stick/MDK-ARM
+	url = https://github.com/birdNb/MDK-ARM.git
+[submodule "RL/IronBenTask"]
+	path = RL/IronBenTask
+	url = https://github.com/birdNb/IronBen_Source.git
