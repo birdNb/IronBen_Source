@@ -11,9 +11,9 @@ https://www.bilibili.com/video/BV18B9oYQEoy/?spm_id_from=333.1387.homepage.video
 
 
 同时我们组建了作品复刻交流群，方便解答同学们在复刻过程中遇到的各种问题。
-  https://amq7.f2z.cn/zfbvEz
+复刻交流群
+ ![1f5cd1ce3c64bb0478995c7e414b3d6d](https://github.com/user-attachments/assets/1f857d28-6ea1-41b5-8c62-3dfb698efcae)
 
- 
 
 低成本、全3D打印、STM32双核控制、支持体感/键鼠/图传三模控制的四足轮腿机器人。
 
