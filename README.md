@@ -1,4 +1,4 @@
- # IronBen 四足轮腿机器人开源项目（一个普通本科生的毕业设计）
+<img width="637" height="774" alt="24b2e99905efaedd1b54d2c5730278c4" src="https://github.com/user-attachments/assets/6af38868-53e6-4985-b5bd-4b806d67eb0f" /> # IronBen 四足轮腿机器人开源项目（一个普通本科生的毕业设计）
 
  作品展示：
 https://www.bilibili.com/video/BV18B9oYQEoy/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b1f70ed87ba974c292801f9812cf83f9
@@ -12,7 +12,8 @@ https://www.bilibili.com/video/BV18B9oYQEoy/?spm_id_from=333.1387.homepage.video
 
 同时我们组建了作品复刻交流群，方便解答同学们在复刻过程中遇到的各种问题。
 复刻交流群
- ![1f5cd1ce3c64bb0478995c7e414b3d6d](https://github.com/user-attachments/assets/1f857d28-6ea1-41b5-8c62-3dfb698efcae)
+ ![Uploading 24b2e99905efaedd1b54d2c5730278c4.png…]()
+
 
 
 低成本、全3D打印、STM32双核控制、支持体感/键鼠/图传三模控制的四足轮腿机器人。
